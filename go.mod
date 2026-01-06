@@ -1,4 +1,4 @@
-module clindx.com/kafka
+module github.com/ashkpal/clindx-kafka
 
 go 1.25.4
 
