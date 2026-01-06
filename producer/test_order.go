@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"clindx.com/kafka/models"
+	"github.com/ashkpal/clindx-kafka/models"
 )
 
 func (p *Producer) PublishTestOrder(
