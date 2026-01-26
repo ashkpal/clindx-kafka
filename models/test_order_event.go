@@ -69,6 +69,6 @@ type MedFile struct {
 	FileType   string    `json:"file_type"`
 	FilePath   string    `json:"file_path"`
 	MimeType   string    `json:"mime_type"`
-	UploaddBy  string    `json:"uploadd_by"`
+	UploadedBy string    `json:"uploaded_by"`
 	UploadDate time.Time `json:"upload_date"`
 }
