@@ -12,6 +12,9 @@ type TestOrderEvent struct {
 	PatientID            uint       `json:"patient_id"`
 	PracticeID           uint       `json:"practice_id"`
 	PhysicianID          uint       `json:"physician_id"`
+	NextDxFlag           bool       `json:"nextdx_flag"`
+	NextPersonalDxFlag   bool       `json:"nextpersonaldx_flag"`
+	NextPersonalDxType   string     `json:"nextpersonaldx_type"`
 	EmailPhysicianFlag   bool       `json:"email_physician_flag"`
 	FaxPhysicianFlag     bool       `json:"fax_physician_flag"`
 	PortalPhysicianFlag  bool       `json:"portal_physician_flag"`
