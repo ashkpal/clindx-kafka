@@ -21,6 +21,8 @@ type PatientEvent struct {
 	CadenceCollection string     `json:"cadence_collection"`
 	SurgeryDate       *time.Time `json:"surgery_date"`
 	Phone             string     `json:"phone"`
+	Email             string     `json:"email"`
+	Street            string     `json:"street"`
 	City              string     `json:"city"`
 	State             string     `json:"state"`
 	Zip               string     `json:"zip"`

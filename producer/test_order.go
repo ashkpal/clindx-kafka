@@ -12,8 +12,6 @@ func (p *Producer) PublishTestOrder(
 	event *models.TestOrderEvent,
 ) error {
 	key := fmt.Sprintf("Order:%d", event.OrderID)
-	if event.TRFNum != "" {
-		key = fmt.Sprintf("Order:%s", event.TRFNum)
-	}
+
 	return p.publish(ctx, key, event)
 }
