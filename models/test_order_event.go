@@ -27,7 +27,7 @@ type TestOrderEvent struct {
 	Stage                string     `json:"stage"`
 	StageSubtype         string     `json:"stage_subtype"`
 	ICD10Codes           string     `json:"icd10_codes"`
-	ImmunoTxFlag         bool       `json:"immuno_tx_flag"`
+	ActiveDiseaseFlag    bool       `json:"active_disease_flag"`
 	ImmunoTxName         string     `json:"immuno_tx_name"`
 	Treatments           string     `json:"treatments"`
 	CancerHistory        bool       `json:"cancer_history"`
