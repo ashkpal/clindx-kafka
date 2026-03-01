@@ -54,9 +54,10 @@ type TestOrderEvent struct {
 	PatientStatus        string     `json:"patient_status"`
 	PatientDischargeDate *time.Time `json:"patient_discharge_date"`
 	InsuranceProvider    string     `json:"insurance_provider"`
-	InsurancePolicyNum   string     `json:"insurance_policynum"`
+	InsurancePolicyNum   string     `json:"insurance_policy_num"`
 	InsuranceMemberID    string     `json:"insurance_member_id"`
 	InsuranceGroupID     string     `json:"insurance_group_id"`
+	PriorAuthNum         string     `json:"prior_auth_num"`
 	Consent              bool       `json:"consent"`
 	ConsentSignedBy      string     `json:"consent_signed_by"`
 	ConsentSignedDate    *time.Time `json:"consent_signed_date"`
