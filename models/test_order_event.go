@@ -51,13 +51,12 @@ type TestOrderEvent struct {
 	BloodCollectionDate  *time.Time `json:"blood_collection_date"`
 	DiseaseStatuses      string     `json:"disease_statuses"`
 	InsuranceType        string     `json:"insurance_type"`
+	PatientStatus        string     `json:"patient_status"`
 	PatientDischargeDate *time.Time `json:"patient_discharge_date"`
 	InsuranceProvider    string     `json:"insurance_provider"`
 	InsurancePolicyNum   string     `json:"insurance_policynum"`
-	InsuredName          string     `json:"insured_name"`
-	InsuredDOB           *time.Time `json:"insured_dob"`
-	InsuredRelationship  string     `json:"insured_relationship"`
-	PriorAuthNum         string     `json:"prior_authnum"`
+	InsuranceMemberID    string     `json:"insurance_member_id"`
+	InsuranceGroupID     string     `json:"insurance_group_id"`
 	Consent              bool       `json:"consent"`
 	ConsentSignedBy      string     `json:"consent_signed_by"`
 	ConsentSignedDate    *time.Time `json:"consent_signed_date"`
