@@ -14,3 +14,11 @@ type PhysicianEvent struct {
 	Fax             string    `json:"fax"`
 	LIMSPhysicianID uuid.UUID `gorm:"type:lims_physician_id"`
 }
+
+type PhysicianPractice struct {
+	PhysicianID uint `json:"physician_id"`
+	PracticeID  uint `json:"practice_id"`
+	EmailFlag   bool `json:"email_flag"`
+	FaxFlag     bool `json:"fax_flag"`
+	PortalFlag  bool `json:"portal_flag"`
+}
