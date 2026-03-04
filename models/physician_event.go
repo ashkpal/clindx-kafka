@@ -13,6 +13,8 @@ type PhysicianEvent struct {
 	Email           string    `json:"email"`
 	Fax             string    `json:"fax"`
 	LIMSPhysicianID uuid.UUID `gorm:"type:lims_physician_id"`
+
+	PhysicianPractices []PhysicianPractice `json:"physician_practices"`
 }
 
 type PhysicianPractice struct {
