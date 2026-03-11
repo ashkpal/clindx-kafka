@@ -24,4 +24,5 @@ type PracticeLocation struct {
 	Phone      string `json:"phone"`
 	Fax        string `json:"fax"`
 	SiteNum    string `json:"site_num"`
+	IsPrimary  bool   `json:"is_primary"`
 }
