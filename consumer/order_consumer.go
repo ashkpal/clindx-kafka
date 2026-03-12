@@ -68,6 +68,7 @@ func ConsumeTestOrderUpdates(
 			}
 			backoff = time.Second
 
+			log.Printf("Raw message: %s", string(msg.Value))
 			var event models.TestOrderUpdateEvent
 			if err := json.Unmarshal(msg.Value, &event); err != nil {
 				log.Printf("[Kafka] invalid JSON: %v", err)
