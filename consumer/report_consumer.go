@@ -30,12 +30,14 @@ func ConsumeTestReports(
 		return err
 	}
 
+	log.Println("mech init done")
 	dialer := &kafka.Dialer{
 		Timeout:       30 * time.Second,
 		DualStack:     true,
 		SASLMechanism: mechanism,
 		TLS:           &tls.Config{},
 	}
+	log.Println("dialer init done")
 
 	reader := kafka.NewReader(kafka.ReaderConfig{
 		Brokers: cfg.Brokers,
@@ -44,6 +46,8 @@ func ConsumeTestReports(
 		Dialer:  dialer,
 	})
 	defer reader.Close()
+
+	log.Println("reader init done")
 
 	log.Printf("[Kafka] Consuming test reports from topic=%s", cfg.Topic)
 
