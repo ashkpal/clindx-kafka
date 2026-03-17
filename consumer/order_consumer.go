@@ -57,11 +57,14 @@ func ConsumeTestOrderUpdates(
 
 		default:
 			msg, err := reader.ReadMessage(ctx)
+
 			if err != nil {
+				log.Printf("[Kafka] Order update read error: %+v", err)
+				log.Printf("username=%s", cfg.Username)
 				if ctx.Err() != nil {
 					return nil
 				}
-				log.Printf("[Kafka] read error: %v", err)
+				log.Printf("[Kafka] Order update read error: %v", err)
 				time.Sleep(backoff)
 				backoff = min(backoff*2, time.Minute)
 				continue
