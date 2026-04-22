@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type TestOrderEvent struct {
 	EventVersion string    `json:"event_version"`
@@ -66,6 +70,8 @@ type TestOrderEvent struct {
 	ConsentSignedDate    *time.Time `json:"consent_signed_date"`
 	TRFCreatedBy         string     `json:"trf_created_by"`
 	FileName             string     `json:"pdf_filename"`
+	LIMSOrderID          uuid.UUID  `json:"lims_order_id"`
+	LIMSTRFID            uuid.UUID  `json:"lims_trf_id"`
 	MedFiles             []MedFile  `json:"medfiles"`
 }
 
