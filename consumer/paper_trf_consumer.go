@@ -12,13 +12,13 @@ import (
 	"github.com/segmentio/kafka-go/sasl/scram"
 )
 
-// TestOrderUpdate is implemented by the application
-type OrderHandler func(ctx context.Context, event *models.TestOrderUpdateEvent) error
+// PaperTRFHandler is implemented by the application
+type PaperTRFHandler func(ctx context.Context, event *models.TestOrderEvent) error
 
-func ConsumeTestOrderUpdates(
+func ConsumePaperTRF(
 	ctx context.Context,
 	cfg Config,
-	handler OrderHandler,
+	handler PaperTRFHandler,
 ) error {
 
 	mechanism, err := scram.Mechanism(
@@ -45,26 +45,26 @@ func ConsumeTestOrderUpdates(
 	})
 	defer reader.Close()
 
-	log.Printf("[Kafka] Consuming test order updates from topic=%s", cfg.Topic)
+	log.Printf("[Kafka] Consuming paper TRF from topic=%s", cfg.Topic)
 
 	backoff := time.Second
 
 	for {
 		select {
 		case <-ctx.Done():
-			log.Println("[Kafka] TestOrder consumer shutting down")
+			log.Println("[Kafka] Paper TRF consumer shutting down")
 			return nil
 
 		default:
 			msg, err := reader.ReadMessage(ctx)
 
 			if err != nil {
-				log.Printf("[Kafka] Order update read error: %+v", err)
+				log.Printf("[Kafka] Paper TRF read error: %+v", err)
 				log.Printf("username=%s", cfg.Username)
 				if ctx.Err() != nil {
 					return nil
 				}
-				log.Printf("[Kafka] Order update read error: %v", err)
+				log.Printf("[Kafka] Paper TRF read error: %v", err)
 				time.Sleep(backoff)
 				backoff = min(backoff*2, time.Minute)
 				continue
@@ -72,7 +72,7 @@ func ConsumeTestOrderUpdates(
 			backoff = time.Second
 
 			log.Printf("Raw message: %s", string(msg.Value))
-			var event models.TestOrderUpdateEvent
+			var event models.TestOrderEvent
 			if err := json.Unmarshal(msg.Value, &event); err != nil {
 				log.Printf("[Kafka] invalid JSON: %v", err)
 				continue
