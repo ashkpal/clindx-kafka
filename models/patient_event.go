@@ -20,12 +20,14 @@ type PatientEvent struct {
 	CadenceEndDate    *time.Time `json:"cadence_end_date"`
 	CadenceCollection string     `json:"cadence_collection"`
 	SurgeryDate       *time.Time `json:"surgery_date"`
+	PhoneCountryCode  string     `json:"phone_country_code"`
 	Phone             string     `json:"phone"`
 	Email             string     `json:"email"`
 	Street            string     `json:"street"`
 	City              string     `json:"city"`
 	State             string     `json:"state"`
 	Zip               string     `json:"zip"`
+	Country           string     `json:"country"`
 	LIMSPatientID     uuid.UUID  `json:"lims_patient_id"`
 
 	PatientPractices []PatientPractice `json:"patient_practices"`
