@@ -30,7 +30,6 @@ func ConsumeTestReports(
 		return err
 	}
 
-	log.Println("mech init done")
 	dialer := &kafka.Dialer{
 		Timeout:       30 * time.Second,
 		DualStack:     true,
@@ -47,8 +46,6 @@ func ConsumeTestReports(
 	})
 	defer reader.Close()
 
-	log.Println("reader init done")
-
 	log.Printf("[Kafka] Consuming test reports from topic=%s", cfg.Topic)
 
 	backoff := time.Second
@@ -60,14 +57,13 @@ func ConsumeTestReports(
 			return nil
 
 		default:
-			msg, err := reader.ReadMessage(ctx)
+			msg, err := reader.FetchMessage(ctx)
 			if err != nil {
 				log.Printf("[Kafka] Test Report read error: %+v", err)
 				log.Printf("username=%s", cfg.Username)
 				if ctx.Err() != nil {
 					return nil
 				}
-				log.Printf("[Kafka] Test Report read error: %v", err)
 				time.Sleep(backoff)
 				backoff = min(backoff*2, time.Minute)
 				continue
@@ -76,15 +72,40 @@ func ConsumeTestReports(
 
 			var event models.TestReportEvent
 			if err := json.Unmarshal(msg.Value, &event); err != nil {
-				log.Printf("[Kafka] invalid JSON: %v", err)
+				log.Printf("[Kafka] invalid JSON topic=%s partition=%d offset=%d: %v",
+					msg.Topic, msg.Partition, msg.Offset, err,
+				)
+
+				// Commit JSON so it does not block the partition forever.
+				if err := reader.CommitMessages(ctx, msg); err != nil {
+					log.Printf("[Kafka] failed to commit invalid JSON offset: %v", err)
+				}
 				continue
 			}
 
 			if err := handler(ctx, &event); err != nil {
-				log.Printf("[Kafka] handler error (key=%s): %v", string(msg.Key), err)
-				// at-least-once semantics: do NOT crash
+				log.Printf("[Kafka] handler error topic=%s partition=%d offset=%d key=%s: %v",
+					msg.Topic, msg.Partition, msg.Offset, string(msg.Key), err,
+				)
+
+				time.Sleep(backoff)
+				backoff = min(backoff*2, time.Minute)
+
+				// Do NOT commit. Message will be retried.
 				continue
 			}
+			backoff = time.Second
+
+			if err := reader.CommitMessages(ctx, msg); err != nil {
+				log.Printf("[Kafka] failed to commit offset topic=%s partition=%d offset=%d: %v",
+					msg.Topic, msg.Partition, msg.Offset, err,
+				)
+				continue
+			}
+
+			log.Printf("[Kafka] committed topic=%s partition=%d offset=%d",
+				msg.Topic, msg.Partition, msg.Offset,
+			)
 		}
 	}
 }
