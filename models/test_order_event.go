@@ -18,6 +18,7 @@ type TestOrderEvent struct {
 	PhysicianID          uint       `json:"physician_id"`
 	TestName             string     `json:"test_name"`
 	TestType             string     `json:"test_type"`
+	RTVTFlag             bool       `json:"rtvt_flag"`
 	TestOrderCadence     int        `json:"test_order_cadence"`
 	CadenceEndDate       *time.Time `json:"cadence_end_date"`
 	CadenceCollection    string     `json:"cadence_collection"`
