@@ -17,8 +17,10 @@ type TestOrderUpdateEvent struct {
 	LIMSAccessionTestOrderID uuid.UUID  `json:"portal_test_order_id"`
 	LIMSTestRequisitionID    uuid.UUID  `json:"test_order_form_id"`
 	Status                   string     `json:"current_status"`
+	RTVTFlag                 bool       `json:"rtvt_flag"`
 	Diagnosis                string     `json:"diagnosis"`
 	DiagnosisOther           string     `json:"diagnosis_other"`
 	BloodCollectionDate      *time.Time `json:"plasma_collection_date"`
 	TumorCollectionDate      *time.Time `json:"tumor_collection_date"`
+	MedFiles                 []MedFile  `json:"medfiles"`
 }
