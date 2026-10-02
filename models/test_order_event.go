@@ -42,6 +42,7 @@ type TestOrderEvent struct {
 	SurgeryDate          *time.Time `json:"surgery_date"`
 	TumorRequest         string     `json:"tumor_request"`
 	TumorSpecimenID      string     `json:"tumor_specimen_id"`
+	TumorLocation        string     `json:"tumor_location"`
 	TumorCollectionDate  *time.Time `json:"tumor_collection_date"`
 	TumorExhaustFlag     bool       `json:"tumor_exhaust_flag"`
 	TumorHandling        string     `json:"tumor_handling"`

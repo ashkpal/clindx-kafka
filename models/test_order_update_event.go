@@ -22,5 +22,6 @@ type TestOrderUpdateEvent struct {
 	DiagnosisOther           string     `json:"diagnosis_other"`
 	BloodCollectionDate      *time.Time `json:"plasma_collection_date"`
 	TumorCollectionDate      *time.Time `json:"tumor_collection_date"`
+	TumorLocation            string     `json:"tumor_location"`
 	MedFiles                 []MedFile  `json:"medfiles"`
 }
